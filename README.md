@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# QR Child Tracker
+
+A project that allows parents or guardians to help find their child using QR that will be embedded in their dress.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
