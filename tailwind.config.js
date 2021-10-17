@@ -34,7 +34,9 @@ module.exports = {
     extend: {
       backgroundColor: ['disabled'],
       textColor: ['disabled'],
-      cursor: ['disabled']
+      cursor: ['disabled'],
+      borderWidth: ['hover'],
+      borderColor: ['hover', 'disabled']
     }
   },
   plugins: []

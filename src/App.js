@@ -3,6 +3,8 @@ import './App.css'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import Home from './Pages/Home'
 import Landing from './Pages/Landing'
+import Login from './Pages/Auth/Login'
+import Register from './Pages/Auth/Register'
 // import Navbar from './Components/Navbar'
 
 function App () {
@@ -21,6 +23,8 @@ function App () {
         <Switch>
           <Route exact path='/' component={Landing} />
           <Route exact path='/home' component={Home} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/register' component={Register} />
           <Redirect to='/' />
         </Switch>
       </BrowserRouter>
