@@ -5,6 +5,8 @@ module.exports = {
     extend: {
       zIndex: {
         '-10': '-10',
+        '-20': '-20',
+        '-30': '-30',
         60: '60',
         100: '100'
       },
@@ -13,19 +15,7 @@ module.exports = {
         roboto: ['Roboto']
       },
       colors: {
-        jams_purple: '#4244B4',
-        jams_light_purple: '#5A6EAD',
-        jams_dark_purple: '#383B98',
-        jams_red: '#FF5E55',
-        jams_blue: '#3B7DED',
-        jams_notify_purple: '#5C60CD',
-        jams_dark_blue: '#1e1e38',
-        discord_violet: '#4362cc',
-        discord_white: '#f4f8fc',
-        jams_green: '#39AA68',
-        jams_yellow: '#F9C531',
-        jams_input_gray: '#2B2D4F',
-        jams_icon_gray: '#313152'
+        newblue: '#3C43FF'
       },
       inset: {
         '2/5': '40%',
@@ -44,7 +34,9 @@ module.exports = {
     extend: {
       backgroundColor: ['disabled'],
       textColor: ['disabled'],
-      cursor: ['disabled']
+      cursor: ['disabled'],
+      borderWidth: ['hover'],
+      borderColor: ['hover', 'disabled']
     }
   },
   plugins: []
