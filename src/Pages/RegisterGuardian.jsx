@@ -31,11 +31,13 @@ const RegisterGuardian = () => {
               }]
             }}
             validationSchema={Yup.object({
-              firstName: Yup.string().required('Required'),
-              lastName: Yup.string().required('Required'),
-              phone: Yup.string().required('Required'),
-              gender: Yup.string().required('Required'),
-              age: Yup.string().required('Required')
+              users: Yup.array((Yup.object({
+                firstName: Yup.string().required(),
+                lastName: Yup.string().required(),
+                phone: Yup.string().required(),
+                age: Yup.string().required(),
+                gender: Yup.string().required()
+              }))).min(1).max(3)
             })}
             onSubmit={(values) => {
               console.log(values)

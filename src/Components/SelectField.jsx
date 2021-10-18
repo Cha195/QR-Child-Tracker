@@ -1,5 +1,4 @@
 import Select from 'react-select'
-
 const addSelectStyle = (provided) => ({
   ...provided,
   backgroundColor: '#383B98',
