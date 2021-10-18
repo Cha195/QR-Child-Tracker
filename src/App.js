@@ -7,9 +7,10 @@ import Login from './Pages/Auth/Login'
 import Register from './Pages/Auth/Register'
 import RegisterGuardian from './Pages/RegisterGuardian'
 import 'react-phone-number-input/style.css'
+import QRGenerator from './Pages/QRGenerator'
 // import Navbar from './Components/Navbar'
 
-function App () {
+const App = () => {
   // const [navlinksOpen, setNavlinksOpen] = useState(false)
 
   return (
@@ -28,6 +29,7 @@ function App () {
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
           <Route exact path='/poc' component={RegisterGuardian} />
+          <Route exact path='/qr' component={QRGenerator} />
           <Redirect to='/' />
         </Switch>
       </BrowserRouter>
