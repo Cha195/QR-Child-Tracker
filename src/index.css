@@ -20,6 +20,14 @@
   @apply grid gap-4 py-5 px-7 text-xs text-center sm:text-sm sm:text-left relative z-10;
 }
 
+.formikLabel {
+  @apply text-white mt-5 text-xs;
+}
+
+.formikInput {
+  @apply px-3 py-2 w-full bg-jams_dark_purple text-white placeholder-gray-300 rounded-lg;
+}
+
 .grid-btn {
   @apply font-bold my-4 w-full py-3 rounded-md text-sm;
 }

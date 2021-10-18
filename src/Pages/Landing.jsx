@@ -12,9 +12,9 @@ const Landing = () => {
   return (
     <div className='h-full overflow-auto'>
       <div className='h-full w-full relative'>
-        <TriangleImage3 className='hidden md:block md:absolute top-1/2 md:top-0 left-0 -z-30' />
-        <TriangleImage2 className='hidden md:block md:absolute top-1/2 md:top-0 left-0 -z-20' />
-        <TriangleImage1 className='hidden md:block md:absolute top-1/2 md:top-0 left-0 -z-10' />
+        <TriangleImage3 className='hidden md:block md:absolute -top-1/2 left-0 -z-30' />
+        <TriangleImage2 className='hidden md:block md:absolute top-1/2 left-0 -z-20' />
+        <TriangleImage1 className='hidden md:block md:absolute top-1/2 left-0 -z-10' />
         <TriangleImage5 className='absolute top-0 md:hidden -z-10' />
         <TriangleImage6 className='absolute top-0 md:hidden -z-20' />
         <TriangleImage7 className='absolute top-0 md:hidden -z-30' />

@@ -94,7 +94,7 @@ const Login = () => {
             <input
               type='text'
               name='username'
-              className='mt-5 p-3 border-2 border-black rounded-md outline-none w-full'
+              className='mt-5 p-3 border-2 border-black bg-newdarkblue text-white placeholder-white rounded-md outline-none w-full'
               placeholder='Username or Email'
               onChange={handleChange}
               autoComplete='off'
@@ -102,7 +102,7 @@ const Login = () => {
             <input
               type={visible ? 'text' : 'password'}
               name='password'
-              className='mt-5 p-3 border-2 border-black rounded-md outline-none w-full'
+              className='mt-5 p-3 border-2 border-black bg-newdarkblue text-white placeholder-white rounded-md outline-none w-full'
               placeholder='Password'
               onKeyPress={handleEnter}
               onChange={handleChange}
@@ -121,7 +121,7 @@ const Login = () => {
               type='submit'
               onClick={handleLogin}
               disabled={buttonDisable}
-              className='w-full p-4 bg-white font-sora font-bold rounded-md text-newblue mt-5 mb-8 outline-none cursor-pointer border-2 border-newblue hover:bg-newblue hover:text-white hover:border-white disabled:bg-gray-200 disabled:text-newblue disabled:border-gray-200 disabled:cursor-default'
+              className='w-full p-4 bg-blue-800 font-sora font-bold rounded-md text-white mt-5 mb-8 outline-none cursor-pointer border-2 border-newblue hover:bg-blue-700 hover:text-white hover:border-white disabled:bg-blue-800 disabled:text-gray-400 disabled:border-blue-800 disabled:cursor-default'
             >
               {buttonText}
             </button>

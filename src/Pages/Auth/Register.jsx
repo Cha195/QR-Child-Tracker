@@ -121,7 +121,7 @@ const Register = () => {
               type='submit'
               onClick={handleRegister}
               disabled={buttonDisable}
-              className='w-full p-4 bg-white font-sora font-bold rounded-md text-newblue mt-5 mb-8 outline-none cursor-pointer border-2 border-newblue hover:bg-newblue hover:text-white hover:border-white disabled:bg-gray-200 disabled:text-newblue disabled:border-gray-200 disabled:cursor-default'
+              className='w-full p-4 bg-blue-800 font-sora font-bold rounded-md text-white mt-5 mb-8 outline-none cursor-pointer border-2 border-newblue hover:bg-blue-700 hover:text-white hover:border-white disabled:bg-blue-800 disabled:text-gray-400 disabled:border-blue-800 disabled:cursor-default'
             >
               {buttonText}
             </button>
