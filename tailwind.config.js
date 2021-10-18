@@ -15,7 +15,8 @@ module.exports = {
         roboto: ['Roboto']
       },
       colors: {
-        newblue: '#3C43FF'
+        newblue: '#0859f7',
+        newdarkblue: '#2d26b9'
       },
       inset: {
         '2/5': '40%',
