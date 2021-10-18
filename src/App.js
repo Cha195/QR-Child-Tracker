@@ -6,6 +6,7 @@ import Landing from './Pages/Landing'
 import Login from './Pages/Auth/Login'
 import Register from './Pages/Auth/Register'
 import RegisterGuardian from './Pages/RegisterGuardian'
+import 'react-phone-number-input/style.css'
 // import Navbar from './Components/Navbar'
 
 function App () {

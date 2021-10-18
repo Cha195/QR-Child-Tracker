@@ -2,7 +2,6 @@ import React from 'react'
 import HomeSvg from '../Assets/home.svg'
 
 const Home = () => {
-
   return (
     <div className='h-screen w-screen'>
       {/* {
