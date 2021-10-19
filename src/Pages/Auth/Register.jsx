@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-// simport { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { PuffLoader } from 'react-spinners'
 import { css } from '@emotion/react'
 import login from '../../Assets/login.svg'
@@ -12,7 +12,7 @@ const Register = () => {
   const [buttonText, setButtonText] = useState('REGISTER')
   const [buttonDisable, setButtonDisable] = useState(true)
   const { signup } = useAuth()
-  // const history = useHistory()
+  const history = useHistory()
   const LoaderCss = css`
     display: block;
     margin: 0 auto;
@@ -44,6 +44,7 @@ const Register = () => {
       signup(credentials.email, credentials.password).then(() => {
         setButtonDisable(false)
         setButtonText('REGISTER')
+        history.push('/login')
       }).catch(err => {
         setButtonText('REGISTER')
         setButtonDisable(false)

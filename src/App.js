@@ -1,6 +1,5 @@
 import React from 'react'
 import './App.css'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import Home from './Pages/Home'
 import Landing from './Pages/Landing'
 import Login from './Pages/Auth/Login'
@@ -9,6 +8,13 @@ import RegisterGuardian from './Pages/RegisterGuardian'
 import 'react-phone-number-input/style.css'
 import QRGenerator from './Pages/QRGenerator'
 import { AuthProvider } from './Contexts/AuthContext'
+import PrivateRoute from './Components/PrivateRoute'
+import { 
+  BrowserRouter,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom'
 // import Navbar from './Components/Navbar'
 
 const App = () => {
@@ -27,11 +33,11 @@ const App = () => {
           )} */}
           <Switch>
             <Route exact path='/' component={Landing} />
-            <Route exact path='/home' component={Home} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
-            <Route exact path='/poc' component={RegisterGuardian} />
-            <Route exact path='/qr' component={QRGenerator} />
+            <PrivateRoute exact path='/home' component={Home} />
+            <PrivateRoute exact path='/poc' component={RegisterGuardian} />
+            <PrivateRoute exact path='/qr' component={QRGenerator} />
             <Redirect to='/' />
           </Switch>
         </AuthProvider>
