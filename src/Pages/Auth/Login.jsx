@@ -3,8 +3,7 @@ import React, { useState } from 'react'
 import { PuffLoader } from 'react-spinners'
 import { css } from '@emotion/react'
 import login from '../../Assets/login.svg'
-import firebase from "firebase"
-import { firebaseConfig } from '../../firebase'
+import { signInWithEmailAndPassword } from '../../firebase'
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' })
@@ -18,9 +17,6 @@ const Login = () => {
     margin: 0 auto;
     border-color: #3C43FF;
   `
-
-  const app = firebase.initializeApp(firebaseConfig)
-  const auth = app.auth()
 
   const handleChange = (event) => {
     setErrorMessage('')
@@ -37,15 +33,6 @@ const Login = () => {
   const handleEnter = (event) => {
     if (event.target.name === 'password' && event.key === 'Enter') {
       handleLogin()
-    }
-  }
-
-  const signInWithEmailAndPassword = async (email, password) => {
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-    } catch (err) {
-      console.error(err);
-      alert(err.message);
     }
   }
 

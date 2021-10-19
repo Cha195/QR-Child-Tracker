@@ -3,9 +3,10 @@ import React, { useState } from 'react'
 import { PuffLoader } from 'react-spinners'
 import { css } from '@emotion/react'
 import login from '../../Assets/login.svg'
+import { registerWithEmailAndPassword } from '../../firebase'
 
 const Register = () => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' })
+  const [credentials, setCredentials] = useState({ email: '', password: '' })
   const [visible, setVisible] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [buttonText, setButtonText] = useState('REGISTER')
@@ -22,7 +23,7 @@ const Register = () => {
     const cred = credentials
     cred[event.target.name] = event.target.value
     setCredentials(cred)
-    if (cred.username !== '' && cred.password !== '') {
+    if (cred.email !== '' && cred.password !== '') {
       setButtonDisable(false)
     } else {
       setButtonDisable(true)
@@ -36,9 +37,10 @@ const Register = () => {
   }
 
   const handleRegister = () => {
-    if (credentials.username !== '' && credentials.password !== '') {
+    if (credentials.email !== '' && credentials.password !== '') {
       setButtonDisable(true)
       setButtonText(<PuffLoader css={LoaderCss} size={24} loading color='white' />)
+      registerWithEmailAndPassword(credentials.email, credentials.password)
       // window.fetch(`${baseURL}/user/register`, {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },
@@ -93,7 +95,7 @@ const Register = () => {
             <p className='mt-5 text-xl font-medium font-sora text-red-600 text-center'>{errorMessage}</p>
             <input
               type='text'
-              name='username'
+              name='email'
               className='mt-5 p-3 border-2 border-black rounded-md outline-none w-full'
               placeholder='Email'
               onChange={handleChange}
