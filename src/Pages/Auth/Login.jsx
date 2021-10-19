@@ -3,9 +3,11 @@ import React, { useState } from 'react'
 import { PuffLoader } from 'react-spinners'
 import { css } from '@emotion/react'
 import login from '../../Assets/login.svg'
+import firebase from "firebase"
+import { firebaseConfig } from '../../firebase'
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' })
+  const [credentials, setCredentials] = useState({ email: '', password: '' })
   const [visible, setVisible] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [buttonText, setButtonText] = useState('LOGIN')
@@ -17,12 +19,15 @@ const Login = () => {
     border-color: #3C43FF;
   `
 
+  const app = firebase.initializeApp(firebaseConfig)
+  const auth = app.auth()
+
   const handleChange = (event) => {
     setErrorMessage('')
     const cred = credentials
     cred[event.target.name] = event.target.value
     setCredentials(cred)
-    if (cred.username !== '' && cred.password !== '') {
+    if (cred.email !== '' && cred.password !== '') {
       setButtonDisable(false)
     } else {
       setButtonDisable(true)
@@ -35,10 +40,20 @@ const Login = () => {
     }
   }
 
+  const signInWithEmailAndPassword = async (email, password) => {
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  }
+
   const handleLogin = () => {
-    if (credentials.username !== '' && credentials.password !== '') {
+    if (credentials.email !== '' && credentials.password !== '') {
       setButtonDisable(true)
       setButtonText(<PuffLoader css={LoaderCss} size={24} loading color='white' />)
+      signInWithEmailAndPassword(credentials.email, credentials.password)
       // window.fetch(`${baseURL}/user/login`, {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },
@@ -93,9 +108,9 @@ const Login = () => {
             <p className='mt-5 text-xl font-medium font-sora text-red-600 text-center'>{errorMessage}</p>
             <input
               type='text'
-              name='username'
+              name='email'
               className='mt-5 p-3 border-2 border-black bg-newdarkblue text-white placeholder-white rounded-md outline-none w-full'
-              placeholder='Username or Email'
+              placeholder='Email'
               onChange={handleChange}
               autoComplete='off'
             />
