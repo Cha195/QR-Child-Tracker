@@ -1,17 +1,14 @@
 import { Formik, Field, Form, ErrorMessage, FieldArray } from 'formik'
-// import { useSelector } from 'react-redux'
 import PhoneNumber from '../Components/PhoneNumber'
-// import { useHistory } from 'react-router'
+import { useHistory } from 'react-router'
 import * as Yup from 'yup'
 // import { ReactComponent as Devjams } from 'Assets/Night/DevJams Logo.svg'
-// import { setRegister1 } from 'Redux/slices/register'
 import SelectField from '../Components/SelectField'
 import { genderOptions } from '../Data/DropdownData'
 import { validatePhoneNumber } from '../Utils/Helper'
 
 const RegisterGuardian = () => {
-  // const dispatch = useDispatch()
-  // const history = useHistory()
+  const history = useHistory()
 
   return (
     <div className='w-screen py-5 min-h-screen flex items-center justify-center bg-jams_purple'>
@@ -41,6 +38,7 @@ const RegisterGuardian = () => {
             })}
             onSubmit={(values) => {
               console.log(values)
+              history.push('/qr')
             }}
           >
             {({ values }) => (

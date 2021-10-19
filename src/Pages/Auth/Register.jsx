@@ -4,9 +4,10 @@ import { PuffLoader } from 'react-spinners'
 import { css } from '@emotion/react'
 import login from '../../Assets/login.svg'
 import { useAuth } from '../../Contexts/AuthContext'
+import { db } from '../../firebase'
 
 const Register = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' })
+  const [credentials, setCredentials] = useState({ name: '', email: '', phone: '', password: '' })
   const [visible, setVisible] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [buttonText, setButtonText] = useState('REGISTER')
@@ -38,11 +39,17 @@ const Register = () => {
   }
 
   const handleRegister = async () => {
-    if (credentials.email !== '' && credentials.password !== '') {
+    const { name, email, phone, password } = credentials
+    if (email !== '' && password !== '' && name !== '' && phone !== '') {
       setButtonDisable(true)
       setButtonText(<PuffLoader css={LoaderCss} size={24} loading color='white' />)
-      signup(credentials.email, credentials.password).then(() => {
+      signup(email, password).then((userDetails) => {
         setButtonDisable(false)
+        db.collection('users').doc(userDetails.uid).set({
+          Name: name,
+          Phone: phone,
+          Email: email
+        })
         setButtonText('REGISTER')
         history.push('/login')
       }).catch(err => {
@@ -106,9 +113,25 @@ const Register = () => {
             </div>
             <input
               type='text'
+              name='name'
+              className='mt-5 p-3 bg-jams_dark_purple rounded-md outline-none w-full'
+              placeholder='Name'
+              onChange={handleChange}
+              autoComplete='off'
+            />
+            <input
+              type='text'
               name='email'
               className='mt-5 p-3 bg-jams_dark_purple rounded-md outline-none w-full'
               placeholder='Email'
+              onChange={handleChange}
+              autoComplete='off'
+            />
+            <input
+              type='tel'
+              name='phone'
+              className='mt-5 p-3 bg-jams_dark_purple rounded-md outline-none w-full'
+              placeholder='Phone number'
               onChange={handleChange}
               autoComplete='off'
             />
