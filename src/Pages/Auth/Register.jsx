@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
-// simport { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { PuffLoader } from 'react-spinners'
 import { css } from '@emotion/react'
 import login from '../../Assets/login.svg'
+import { useAuth } from '../../Contexts/AuthContext'
 
 const Register = () => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' })
+  const [credentials, setCredentials] = useState({ email: '', password: '' })
   const [visible, setVisible] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [buttonText, setButtonText] = useState('REGISTER')
   const [buttonDisable, setButtonDisable] = useState(true)
-  // const history = useHistory()
+  const { signup } = useAuth()
+  const history = useHistory()
   const LoaderCss = css`
     display: block;
     margin: 0 auto;
@@ -22,7 +24,7 @@ const Register = () => {
     const cred = credentials
     cred[event.target.name] = event.target.value
     setCredentials(cred)
-    if (cred.username !== '' && cred.password !== '') {
+    if (cred.email !== '' && cred.password !== '') {
       setButtonDisable(false)
     } else {
       setButtonDisable(true)
@@ -35,10 +37,19 @@ const Register = () => {
     }
   }
 
-  const handleRegister = () => {
-    if (credentials.username !== '' && credentials.password !== '') {
+  const handleRegister = async () => {
+    if (credentials.email !== '' && credentials.password !== '') {
       setButtonDisable(true)
       setButtonText(<PuffLoader css={LoaderCss} size={24} loading color='white' />)
+      signup(credentials.email, credentials.password).then(() => {
+        setButtonDisable(false)
+        setButtonText('REGISTER')
+        history.push('/login')
+      }).catch(err => {
+        setButtonText('REGISTER')
+        setButtonDisable(false)
+        setErrorMessage(err.message)
+      })
       // window.fetch(`${baseURL}/user/register`, {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },
@@ -90,11 +101,13 @@ const Register = () => {
             <p className='font-sora font-normal mt-3 text-lg text-left'>Already have an account? <a className='underline' href='/login'>Login</a></p>
           </div>
           <div className='mt-5 flex flex-col items-start'>
-            <p className='mt-5 text-xl font-medium font-sora text-red-600 text-center'>{errorMessage}</p>
+            <div className='w-full'>
+              <p className='mt-5 text-md font-medium font-sora text-white text-center bg-red-400 rounded-md'>{errorMessage}</p>
+            </div>
             <input
               type='text'
-              name='username'
-              className='mt-5 p-3 border-2 border-black rounded-md outline-none w-full'
+              name='email'
+              className='mt-5 p-3 bg-jams_dark_purple rounded-md outline-none w-full'
               placeholder='Email'
               onChange={handleChange}
               autoComplete='off'
@@ -102,7 +115,7 @@ const Register = () => {
             <input
               type={visible ? 'text' : 'password'}
               name='password'
-              className='mt-5 p-3 border-2 border-black rounded-md outline-none w-full'
+              className='mt-5 p-3 bg-jams_dark_purple rounded-md outline-none w-full'
               placeholder='Password'
               onKeyPress={handleEnter}
               onChange={handleChange}
