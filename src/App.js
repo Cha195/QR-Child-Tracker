@@ -8,8 +8,9 @@ import RegisterGuardian from './Pages/RegisterGuardian'
 import 'react-phone-number-input/style.css'
 import QRGenerator from './Pages/QRGenerator'
 import { AuthProvider } from './Contexts/AuthContext'
+import { FirestoreProvider } from './Contexts/FirestoreContext'
 import PrivateRoute from './Components/PrivateRoute'
-import { 
+import {
   BrowserRouter,
   Switch,
   Route,
@@ -19,6 +20,14 @@ import {
 
 const App = () => {
   // const [navlinksOpen, setNavlinksOpen] = useState(false)
+
+  const FirestoreContextComponent = (Component) => {
+    return (
+      <FirestoreProvider>
+        <Component />
+      </FirestoreProvider>
+    )
+  }
 
   return (
     <div className='App'>
@@ -36,8 +45,10 @@ const App = () => {
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
             <PrivateRoute exact path='/home' component={Home} />
-            <PrivateRoute exact path='/poc' component={RegisterGuardian} />
-            <PrivateRoute exact path='/qr' component={QRGenerator} />
+            <PrivateRoute
+              exact path='/poc' component={() => FirestoreContextComponent(RegisterGuardian)}
+            />
+            <PrivateRoute exact path='/qr' component={() => FirestoreContextComponent(QRGenerator)} />
             <Redirect to='/' />
           </Switch>
         </AuthProvider>
