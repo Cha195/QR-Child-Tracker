@@ -3,18 +3,18 @@ import PhoneNumber from '../Components/PhoneNumber'
 import { useHistory } from 'react-router'
 import * as Yup from 'yup'
 // import { ReactComponent as Devjams } from 'Assets/Night/DevJams Logo.svg'
-import SelectField from '../Components/SelectField'
-import { genderOptions } from '../Data/DropdownData'
 import { validatePhoneNumber } from '../Utils/Helper'
+import { useFirestore } from '../Contexts/FirestoreContext'
 
 const RegisterGuardian = () => {
   const history = useHistory()
+  const { addGuardian } = useFirestore()
 
   return (
     <div className='w-screen py-5 min-h-screen flex items-center justify-center bg-jams_purple'>
       <div className='z-40 sm:top-0 bg-indigo-900 w-11/12 md:w-4/5 lg:w-3/5 xl:w-2/5 p-7 text-left rounded-xl flex flex-col'>
-        <div className='w-1/2 mx-auto text-center text-2xl text-white font-bold'>
-          Register a guardian
+        <div className='w-2/3 mx-auto text-center text-2xl text-white font-bold'>
+          Register new point of contact
         </div>
         <div className='mt-5'>
           <Formik
@@ -23,8 +23,7 @@ const RegisterGuardian = () => {
                 firstName: '',
                 lastName: '',
                 phone: '',
-                gender: '',
-                age: ''
+                email: ''
               }]
             }}
             validationSchema={Yup.object({
@@ -32,13 +31,20 @@ const RegisterGuardian = () => {
                 firstName: Yup.string().required(),
                 lastName: Yup.string().required(),
                 phone: Yup.string().required(),
-                age: Yup.string().required(),
-                gender: Yup.string().required()
+                email: Yup.string().required(),
               }))).min(1).max(3)
             })}
             onSubmit={(values) => {
-              console.log(values)
-              history.push('/qr')
+              const users = values.users
+              users.forEach(user => {
+                const name = user.firstName + ' ' + user.lastName
+                addGuardian(name, user.email, user.phone).then(() => {
+                  history.push('/qr')
+                }).catch(err => {
+                  console.log(err)
+                  history.push('/login')
+                })
+              })
             }}
           >
             {({ values }) => (
@@ -88,7 +94,7 @@ const RegisterGuardian = () => {
                               </div>
                             </div>
                             <div className='grid sm:grid-cols-3 lg:grid-cols-5 gap-x-6 text-sm'>
-                              <div className='sm:col-span-2 lg:col-span-3 mt-2'>
+                              <div className='sm:col-span-2 mt-2'>
                                 <label className='formikLabel text-white mt-2' htmlFor={`users[${index}].phone`}>
                                   Phone Number
                                 </label>
@@ -104,34 +110,19 @@ const RegisterGuardian = () => {
                                   )}
                                 </ErrorMessage>
                               </div>
-                              <div className='mt-2 lg:col-span-2'>
-                                <label className='formikLabel' htmlFor={`users[${index}].gender`}>
-                                  Gender
+                              <div className='sm:col-span-2 lg:col-span-3 mt-2'>
+                                <label
+                                  className='formikLabel text-white mt-2'
+                                  htmlFor={`users[${index}].email`}
+                                >
+                                  Email
                                 </label>
                                 <Field
-                                  name={`users[${index}].gender`}
-                                  component={SelectField}
-                                  options={genderOptions}
-                                  placeholder=''
+                                  name={`users[${index}].email`}
+                                  className='formikInput py-1'
+                                  type='text'
                                 />
-                                <ErrorMessage name={`users[${index}].gender`}>
-                                  {(msg) => (
-                                    <div className='text-red-500 w-full text-xs'>{msg}</div>
-                                  )}
-                                </ErrorMessage>
-                              </div>
-                            </div>
-                            <div className='mt-2 grid grid-cols-2 gap-x-6 text-sm'>
-                              <div>
-                                <label className='formikLabel' htmlFor={`users[${index}].age`}>
-                                  Age
-                                </label>
-                                <Field
-                                  name={`users[${index}].age`}
-                                  className='formikInput'
-                                  type='number'
-                                />
-                                <ErrorMessage name={`users[${index}].age`}>
+                                <ErrorMessage name={`users[${index}].email`}>
                                   {(msg) => (
                                     <div className='text-red-500 w-full text-xs'>{msg}</div>
                                   )}
