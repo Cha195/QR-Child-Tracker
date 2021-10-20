@@ -1,7 +1,11 @@
 import React from 'react'
 import QRCode from 'qrcode.react'
+import { useFirestore } from '../Contexts/FirestoreContext'
 
 const QRGenerator = () => {
+  const { currentClientId } = useFirestore()
+  const url = `https://child-traqr.netlify.app/${currentClientId}`
+  console.log(url)
   return (
     <div className='h-screen w-screen p-10'>
       <div className='flex items-center justify-evenly h-full w-full'>
@@ -14,7 +18,7 @@ const QRGenerator = () => {
           </div>
         </div>
         <QRCode
-          value='https://vit.ac.in/'
+          value={url}
           size={380}
           id='qr-gen'
           level='H'

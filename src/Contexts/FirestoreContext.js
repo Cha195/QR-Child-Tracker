@@ -11,6 +11,7 @@ export const useFirestore = () => {
 
 export const FirestoreProvider = ({ children }) => {
   const [currentClient, setCurrentClient] = useState(null)
+  const [currentClientId, setCurrentClientId] = useState('')
   const [loading, setLoading] = useState(true)
   const { currentUser } = useAuth()
   const ref = db.collection('Clients')
@@ -53,6 +54,7 @@ export const FirestoreProvider = ({ children }) => {
             const docData = doc.data()
             if (docData.userId === currentUser.uid) {
               docExists = true
+              setCurrentClientId(doc.id)
               setCurrentClient(doc.ref)
             }
             setLoading(false)
@@ -67,6 +69,7 @@ export const FirestoreProvider = ({ children }) => {
   }, []) //eslint-disable-line
 
   const value = {
+    currentClientId,
     addGuardian
     // resetGuardian,
     // updateGuardian
