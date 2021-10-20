@@ -9,31 +9,33 @@ export const useFirestore = () => {
 }
 
 export const FirestoreProvider = ({ children }) => {
-  const [currentClient, setCurrentClient] = useState()
+  const [currentClient, setCurrentClient] = useState(null)
   const [loading, setLoading] = useState(true)
   const { currentUser } = useAuth()
-  const ref = db.collection("Clients")
+  const ref = db.collection('Clients')
 
   const addClient = (userId) => {
     const initialGuardianRef = db.collection('users').doc(userId)
-    const initialGuardianData = initialGuardianRef.get().then(doc => {
-      if (doc) {
-        return doc
+    let initialGuardianData
+    initialGuardianRef.get().then(doc => {
+      if (doc.exists) {
+        initialGuardianData = doc.data()
       } else {
-        return {
+        initialGuardianData = {
           Name: '',
           Email: '',
           Phone: ''
         }
       }
     })
+    console.log(initialGuardianData)
     ref.add({ userId: userId }).then(doc => {
       doc.collection('guardians').add(initialGuardianData)
     })
   }
 
   const addGuardian = (name, email, phone) => {
-    if(currentClient) {
+    if (currentClient) {
       currentClient.add({ Name: name, Email: email, Phone: phone })
     }
   }
@@ -42,12 +44,14 @@ export const FirestoreProvider = ({ children }) => {
     let docExists = false
     ref.onSnapshot((querySnapshot) => {
       querySnapshot.forEach(doc => {
-        const docData = doc.data()
-        if (docData.userId === currentUser.uid) {
-          docExists = true
-          setCurrentClient(doc)
+        if (doc.exists) {
+          const docData = doc.data()
+          if (docData.userId === currentUser.uid) {
+            docExists = true
+            setCurrentClient(doc)
+          }
+          setLoading(false)
         }
-        setLoading(false)
       })
     })
     if (!docExists) {
@@ -59,7 +63,7 @@ export const FirestoreProvider = ({ children }) => {
   const value = {
     currentClient,
     addClient,
-    addGuardian,
+    addGuardian
     // resetGuardian,
     // updateGuardian
   }

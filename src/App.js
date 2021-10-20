@@ -10,7 +10,7 @@ import QRGenerator from './Pages/QRGenerator'
 import { AuthProvider } from './Contexts/AuthContext'
 import { FirestoreProvider } from './Contexts/FirestoreContext'
 import PrivateRoute from './Components/PrivateRoute'
-import { 
+import {
   BrowserRouter,
   Switch,
   Route,
@@ -45,7 +45,8 @@ const App = () => {
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
             <PrivateRoute exact path='/home' component={Home} />
-            <PrivateRoute exact path='/poc' component={() => FirestoreContextComponent(RegisterGuardian)}
+            <PrivateRoute
+              exact path='/poc' component={() => FirestoreContextComponent(RegisterGuardian)}
             />
             <PrivateRoute exact path='/qr' component={() => FirestoreContextComponent(QRGenerator)} />
             <Redirect to='/' />

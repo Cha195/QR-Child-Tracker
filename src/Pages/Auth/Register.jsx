@@ -45,7 +45,7 @@ const Register = () => {
       setButtonText(<PuffLoader css={LoaderCss} size={24} loading color='white' />)
       signup(email, password).then((userDetails) => {
         setButtonDisable(false)
-        db.collection('users').doc(userDetails.uid).set({
+        db.collection('users').doc(userDetails.user.uid).set({
           Name: name,
           Phone: phone,
           Email: email
@@ -109,7 +109,7 @@ const Register = () => {
           </div>
           <div className='mt-5 flex flex-col items-start'>
             <div className='w-full'>
-              <p className='mt-5 text-md font-medium font-sora text-white text-center bg-red-400 rounded-md'>{errorMessage}</p>
+              <p className={`mt-5 text-md font-medium font-sora ${errorMessage.length > 0 ? 'p-3' : ''} text-white text-center bg-red-400 rounded-md`}>{errorMessage}</p>
             </div>
             <input
               type='text'
