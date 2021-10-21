@@ -2,7 +2,6 @@ import { Formik, Field, Form, ErrorMessage, FieldArray } from 'formik'
 import PhoneNumber from '../Components/PhoneNumber'
 import { useHistory } from 'react-router'
 import * as Yup from 'yup'
-// import { ReactComponent as Devjams } from 'Assets/Night/DevJams Logo.svg'
 import { validatePhoneNumber } from '../Utils/Helper'
 import { useFirestore } from '../Contexts/FirestoreContext'
 
@@ -31,7 +30,7 @@ const RegisterGuardian = () => {
                 firstName: Yup.string().required(),
                 lastName: Yup.string().required(),
                 phone: Yup.string().required(),
-                email: Yup.string().required(),
+                email: Yup.string().required()
               }))).min(1).max(3)
             })}
             onSubmit={(values) => {
