@@ -16,6 +16,7 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
+import ScanForm from './Pages/ScanForm'
 // import Navbar from './Components/Navbar'
 
 const App = () => {
@@ -49,6 +50,7 @@ const App = () => {
               exact path='/poc' component={() => FirestoreContextComponent(RegisterGuardian)}
             />
             <PrivateRoute exact path='/qr' component={() => FirestoreContextComponent(QRGenerator)} />
+            <Route path='/scan/:uid' component={ScanForm} />
             <Redirect to='/' />
           </Switch>
         </AuthProvider>

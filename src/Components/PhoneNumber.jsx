@@ -1,4 +1,5 @@
 import PhoneInput from 'react-phone-number-input'
+import '../Styles/SelectField.css'
 
 const PhoneNumber = ({ field, form, placeholder, disabled }) => (
   <PhoneInput
@@ -7,7 +8,7 @@ const PhoneNumber = ({ field, form, placeholder, disabled }) => (
     placeholder={placeholder}
     value={field.value}
     countrySelectProps={{
-      className: 'bg-jams_dark_purple text-white'
+      className: 'bg-jams_dark_purple'
     }}
     disabled={disabled}
     defaultCountry='IN'

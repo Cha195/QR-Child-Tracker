@@ -4,7 +4,7 @@ import { useFirestore } from '../Contexts/FirestoreContext'
 
 const QRGenerator = () => {
   const { currentClientId } = useFirestore()
-  const url = `https://child-traqr.netlify.app/${currentClientId}`
+  const url = `https://child-traqr.netlify.app/scan/${currentClientId}`
   console.log(url)
   return (
     <div className='h-screen w-screen p-10'>
