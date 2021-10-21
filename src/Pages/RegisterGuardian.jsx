@@ -2,6 +2,7 @@ import { Formik, Field, Form, ErrorMessage, FieldArray } from 'formik'
 import PhoneNumber from '../Components/PhoneNumber'
 import { useHistory } from 'react-router'
 import * as Yup from 'yup'
+import '../Styles/SelectField.css'
 import { validatePhoneNumber } from '../Utils/Helper'
 import { useFirestore } from '../Contexts/FirestoreContext'
 

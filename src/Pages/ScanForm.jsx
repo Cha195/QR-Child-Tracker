@@ -1,8 +1,8 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import PhoneNumber from '../Components/PhoneNumber'
 import * as Yup from 'yup'
-import SelectField from '../Components/SelectField'
-import { genderOptions } from '../Data/DropdownData'
+// import SelectField from '../Components/SelectField'
+// import { genderOptions } from '../Data/DropdownData'
 import { validatePhoneNumber } from '../Utils/Helper'
 
 const ScanForm = () => {
@@ -18,17 +18,16 @@ const ScanForm = () => {
               firstName: '',
               lastName: '',
               phone: '',
-              email: '',
-              gender: ''
+              age: ''
             }}
             validationSchema={Yup.object({
               firstName: Yup.string().required(),
               lastName: Yup.string().required(),
               phone: Yup.string().required(),
-              email: Yup.string().required(),
-              gender: Yup.string().required()
+              age: Yup.string().required()
             })}
             onSubmit={(values) => {
+              console.log('submit')
               console.log(values)
             }}
           >
@@ -83,22 +82,6 @@ const ScanForm = () => {
                     placeholder=''
                   />
                   <ErrorMessage name='phone'>
-                    {(msg) => (
-                      <div className='text-red-500 w-full text-xs'>{msg}</div>
-                    )}
-                  </ErrorMessage>
-                </div>
-                <div className='mt-2'>
-                  <label className='formikLabel' htmlFor='gender'>
-                    Gender
-                  </label>
-                  <Field
-                    name='gender'
-                    component={SelectField}
-                    options={genderOptions}
-                    placeholder=''
-                  />
-                  <ErrorMessage name='gender'>
                     {(msg) => (
                       <div className='text-red-500 w-full text-xs'>{msg}</div>
                     )}
