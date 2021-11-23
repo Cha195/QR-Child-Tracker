@@ -12,15 +12,36 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
 
   const signup = (email, password) => {
-    return auth.createUserWithEmailAndPassword(email, password)
+    try {
+      return auth.createUserWithEmailAndPassword(email, password)
+    } catch (err) {
+      console.log(err)
+      return false
+    }
   }
 
   const login = (email, password) => {
-    return auth.signInWithEmailAndPassword(email, password)
+    try {
+      auth.signInWithEmailAndPassword(email, password).then((user) => {
+        auth.currentUser.getIdToken().then(token => {
+          window.localStorage.setItem('access', token)
+        })
+      })
+      return true
+    } catch (err) {
+      console.log(err)
+      return false
+    }
   }
 
   const logout = () => {
-    return auth.signOut()
+    try {
+      auth.signOut()
+      return true
+    } catch (err) {
+      console.log(err)
+      return false
+    }
   }
 
   // const resetPassword = (email) => {

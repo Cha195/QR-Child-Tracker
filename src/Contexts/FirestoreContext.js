@@ -38,7 +38,6 @@ export const FirestoreProvider = ({ children }) => {
 
   const addGuardian = (name, email, phone) => {
     if (currentClient) {
-      console.log(currentClient)
       return currentClient.collection('guardians').add({ Name: name, Email: email, Phone: phone })
     } else {
       history.pushState('/login')

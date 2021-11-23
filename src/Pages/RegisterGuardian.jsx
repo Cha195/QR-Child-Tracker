@@ -4,11 +4,9 @@ import { useHistory } from 'react-router'
 import * as Yup from 'yup'
 import '../Styles/SelectField.css'
 import { validatePhoneNumber } from '../Utils/Helper'
-import { useFirestore } from '../Contexts/FirestoreContext'
 
 const RegisterGuardian = () => {
   const history = useHistory()
-  const { addGuardian } = useFirestore()
 
   return (
     <div className='w-screen py-5 min-h-screen flex items-center justify-center bg-jams_purple'>
@@ -36,14 +34,16 @@ const RegisterGuardian = () => {
             })}
             onSubmit={(values) => {
               const users = values.users
-              users.forEach(user => {
-                const name = user.firstName + ' ' + user.lastName
-                addGuardian(name, user.email, user.phone).then(() => {
+              const body = {
+                guardians: users
+              }
+              window.fetch('http://localhost:5000/api/poc', {body}).then((res) => {
+                if(res.status === 200) {
                   history.push('/qr')
-                }).catch(err => {
-                  console.log(err)
-                  history.push('/login')
-                })
+                  return res.json()
+                }
+              }).catch((err) => {
+                console.log(err)
               })
             }}
           >
