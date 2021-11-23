@@ -1,9 +1,9 @@
 import React from 'react'
 import QRCode from 'qrcode.react'
-import { useFirestore } from '../Contexts/FirestoreContext'
+import { useAuth } from '../Contexts/AuthContext'
 
 const QRGenerator = () => {
-  const { currentClientId } = useFirestore()
+  const { currentClientId } = useAuth()
   const url = `https://child-traqr.netlify.app/scan/${currentClientId}`
   console.log(url)
   return (

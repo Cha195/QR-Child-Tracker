@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import PhoneNumber from '../Components/PhoneNumber'
 import * as Yup from 'yup'
@@ -6,6 +7,30 @@ import * as Yup from 'yup'
 import { validatePhoneNumber } from '../Utils/Helper'
 
 const ScanForm = () => {
+  const [contactSuccessful, setContactSuccessful] = useState(false)
+  const handleScan = (body) => {
+    const name = body.firstName + ' ' + body.lastName
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('email', body.email)
+    formData.append('phone', body.phone)
+
+    window.fetch('http://localhost:5000/api/login', {
+      body: formData
+    }).then(res => {
+      if (res.status === 200) {
+        return res.json()
+      } else {
+        throw new Error('Error sending details')
+      }
+    }).then(data => {
+      setContactSuccessful(data.emailSent)
+    }).catch(err => {
+      console.log(err)
+      setContactSuccessful(false)
+    })
+  }
+
   return (
     <div className='w-screen py-5 min-h-screen flex items-center justify-center bg-jams_purple'>
       <div className='z-40 sm:top-0 bg-indigo-900 w-11/12 md:w-4/5 lg:w-3/5 xl:w-2/5 p-7 text-left rounded-xl flex flex-col'>
@@ -27,8 +52,7 @@ const ScanForm = () => {
               age: Yup.string().required()
             })}
             onSubmit={(values) => {
-              console.log('submit')
-              console.log(values)
+              handleScan(values)
             }}
           >
             <Form>

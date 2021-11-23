@@ -7,6 +7,30 @@ import { validatePhoneNumber } from '../Utils/Helper'
 
 const RegisterGuardian = () => {
   const history = useHistory()
+  const access = window.localStorage.getItem('access')
+  if(access === null || access === undefined) {
+    history.push('login')
+  }
+
+  const handlePoc = (body) => {
+    window.fetch('http://localhost:5000/api/poc', {
+      body: body,
+      headers: {
+        authorization: access
+      }
+    }).then((res) => {
+      if(res.status === 200) {
+        history.push('/qr')
+      } else {
+        history.push('/register')
+      }
+      return res.json()
+    }).then(data => {
+      console.log(data)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
 
   return (
     <div className='w-screen py-5 min-h-screen flex items-center justify-center bg-jams_purple'>
@@ -37,14 +61,7 @@ const RegisterGuardian = () => {
               const body = {
                 guardians: users
               }
-              window.fetch('http://localhost:5000/api/poc', {body}).then((res) => {
-                if(res.status === 200) {
-                  history.push('/qr')
-                  return res.json()
-                }
-              }).catch((err) => {
-                console.log(err)
-              })
+              handlePoc(body)
             }}
           >
             {({ values }) => (
