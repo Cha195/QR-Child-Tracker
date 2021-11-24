@@ -37,11 +37,12 @@ const Login = () => {
     }
   }
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     if (credentials.email !== '' && credentials.password !== '') {
       setButtonDisable(true)
       setButtonText(<PuffLoader css={LoaderCss} size={24} loading color='white' />)
-      const loggedIn = await login(credentials.email, credentials.password)
+      const loggedIn = login(credentials.email, credentials.password)
+      console.log(loggedIn)
       if (loggedIn) {
         setButtonDisable(false)
         setButtonText('LOGIN')

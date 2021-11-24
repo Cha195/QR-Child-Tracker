@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import PhoneNumber from '../Components/PhoneNumber'
 import * as Yup from 'yup'
@@ -7,7 +7,6 @@ import * as Yup from 'yup'
 import { validatePhoneNumber } from '../Utils/Helper'
 
 const ScanForm = () => {
-  const [contactSuccessful, setContactSuccessful] = useState(false)
   const handleScan = (body) => {
     const name = body.firstName + ' ' + body.lastName
     const formData = new FormData()
@@ -24,10 +23,11 @@ const ScanForm = () => {
         throw new Error('Error sending details')
       }
     }).then(data => {
-      setContactSuccessful(data.emailSent)
+      if (data.emailSent) {
+        alert('Emails sent!')
+      }
     }).catch(err => {
       console.log(err)
-      setContactSuccessful(false)
     })
   }
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import { auth } from '../firebase'
 import { useHistory } from 'react-router'
 
@@ -9,9 +9,8 @@ export const useAuth = () => {
 }
 
 export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState()
+  const [currentUserId, setCurrentUserId] = useState('')
   const [currentClientId, setCurrentClientId] = useState('')
-  const [loading, setLoading] = useState(true)
   const history = useHistory()
 
   const signup = (email, password, name, phone) => {
@@ -37,13 +36,15 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
-  const login = (email, password) => {
+  const login = async (email, password) => {
     const formData = new FormData()
     formData.append('email', email)
     formData.append('password', password)
 
     try {
-      window.fetch('http://localhost:5000/api/login', {
+      let loggedIn = false
+      await window.fetch('http://localhost:5000/api/token', {
+        method: 'POST',
         body: formData
       }).then((res) => {
         if(res.status === 200) {
@@ -52,10 +53,18 @@ export const AuthProvider = ({ children }) => {
           throw new Error('Error logging in')
         }
       }).then(data => {
-        setCurrentClientId(data.uid)
+        console.log(data)
+        setCurrentClientId(data.client_id)
+        setCurrentUserId(data.user_id)
         window.localStorage.setItem('accessToken', data.access)
+        window.localStorage.setItem('refreshToken', data.refresh)
+        loggedIn = true
       })
-      return true
+      if (loggedIn) {
+
+        return true
+      }
+      return false
     } catch (err) {
       console.log(err)
       return false
@@ -77,25 +86,16 @@ export const AuthProvider = ({ children }) => {
   // }
 
   // const updateEmail = (email) => {
-  //   return currentUser.updateEmail(email)
+  //   return currentUserId.updateEmail(email)
   // }
 
   // const updatePassword = (password) => {
-  //   return currentUser.updatePassword(password)
+  //   return currentUserId.updatePassword(password)
   // }
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      setCurrentUser(user)
-      setLoading(false)
-    })
-
-    return unsubscribe
-  }, [])
 
   const value = {
     currentClientId,
-    currentUser,
+    currentUserId,
     login,
     signup,
     logout
@@ -106,7 +106,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   )
 }
