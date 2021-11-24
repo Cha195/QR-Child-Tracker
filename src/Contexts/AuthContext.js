@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import { auth } from '../firebase'
-import { useHistory } from 'react-router'
 
 const AuthContext = React.createContext()
 
@@ -11,25 +10,25 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [currentUserId, setCurrentUserId] = useState('')
   const [currentClientId, setCurrentClientId] = useState('')
-  const history = useHistory()
 
-  const signup = (email, password, name, phone) => {
+  const signup = async (email, password, name, phone) => {
     const formData = new FormData()
     formData.append('email', email)
     formData.append('password', password)
     formData.append('name', name)
     formData.append('phone', phone)
-
+    let registered = false
     try {
-      window.fetch('http://localhost:5000/api/login', {
+      await window.fetch('http://localhost:5000/api/signup', {
+        method: 'POST',
         body: formData
       }).then((res) => {
-        if(res.status === 200) {
-          history.pushState('/login')
-        } else {
-          throw new Error('Error signing ip')
+        if(res.status !== 200) {
+          throw new Error('Error signing up')
         }
+        registered = true
       })
+      return registered
     } catch (err) {
       console.log(err)
       return false
@@ -61,7 +60,6 @@ export const AuthProvider = ({ children }) => {
         loggedIn = true
       })
       if (loggedIn) {
-
         return true
       }
       return false

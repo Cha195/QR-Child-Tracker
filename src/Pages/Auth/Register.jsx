@@ -4,7 +4,6 @@ import { PuffLoader } from 'react-spinners'
 import { css } from '@emotion/react'
 import login from '../../Assets/login.svg'
 import { useAuth } from '../../Contexts/AuthContext'
-import { db } from '../../firebase'
 
 const Register = () => {
   const [credentials, setCredentials] = useState({ name: '', email: '', phone: '', password: '' })
@@ -43,20 +42,22 @@ const Register = () => {
     if (email !== '' && password !== '' && name !== '' && phone !== '') {
       setButtonDisable(true)
       setButtonText(<PuffLoader css={LoaderCss} size={24} loading color='white' />)
-      signup(email, password).then((userDetails) => {
-        setButtonDisable(false)
-        db.collection('users').doc(userDetails.user.uid).set({
-          Name: name,
-          Phone: phone,
-          Email: email
+      try {
+        signup(email, password, name, phone).then(registered => {
+          setButtonDisable(false)
+          setButtonText('REGISTER')
+          console.log(registered)
+          if(registered) {
+            history.push('/login')
+          } else {
+            throw new Error('Cannot register')
+          }
         })
-        setButtonText('REGISTER')
-        history.push('/login')
-      }).catch(err => {
+      } catch (err) {
         setButtonText('REGISTER')
         setButtonDisable(false)
         setErrorMessage(err.message)
-      })
+      }
       // window.fetch(`${baseURL}/user/register`, {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },

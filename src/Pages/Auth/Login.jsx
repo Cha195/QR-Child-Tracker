@@ -41,16 +41,17 @@ const Login = () => {
     if (credentials.email !== '' && credentials.password !== '') {
       setButtonDisable(true)
       setButtonText(<PuffLoader css={LoaderCss} size={24} loading color='white' />)
-      const loggedIn = login(credentials.email, credentials.password)
-      console.log(loggedIn)
-      if (loggedIn) {
-        setButtonDisable(false)
-        setButtonText('LOGIN')
-        history.push('/home')
-      } else {
-        setButtonText('LOGIN')
-        setButtonDisable(false)
-      }
+      login(credentials.email, credentials.password).then((loggedIn) => {
+        console.log(loggedIn)
+        if (loggedIn) {
+          setButtonDisable(false)
+          setButtonText('LOGIN')
+          history.push('/home')
+        } else {
+          setButtonText('LOGIN')
+          setButtonDisable(false)
+        }
+      })
       // window.fetch(`${baseURL}/user/login`, {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },
