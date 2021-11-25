@@ -1,11 +1,38 @@
+// import { useState } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import PhoneNumber from '../Components/PhoneNumber'
 import * as Yup from 'yup'
+import { useParams  } from 'react-router'
 // import SelectField from '../Components/SelectField'
 // import { genderOptions } from '../Data/DropdownData'
 import { validatePhoneNumber } from '../Utils/Helper'
 
 const ScanForm = () => {
+  const { cid } = useParams()
+  const handleScan = (body) => {
+    const name = body.firstName + ' ' + body.lastName
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('email', body.email)
+    formData.append('phone', body.phone)
+
+    window.fetch(`http://localhost:5000/api/scan/${cid}`, {
+      body: formData,
+      method: 'POST'
+    }).then(res => {
+      if (res.status !== 200) {
+        throw new Error('Error sending details')
+      }
+      return res.json()
+    }).then(data => {
+      if (data.emailSent) {
+        window.alert('Emails sent!')
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   return (
     <div className='w-screen py-5 min-h-screen flex items-center justify-center bg-jams_purple'>
       <div className='z-40 sm:top-0 bg-indigo-900 w-11/12 md:w-4/5 lg:w-3/5 xl:w-2/5 p-7 text-left rounded-xl flex flex-col'>
@@ -27,8 +54,7 @@ const ScanForm = () => {
               age: Yup.string().required()
             })}
             onSubmit={(values) => {
-              console.log('submit')
-              console.log(values)
+              handleScan(values)
             }}
           >
             <Form>

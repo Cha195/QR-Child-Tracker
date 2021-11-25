@@ -4,13 +4,6 @@ import HomeSvg from '../Assets/home.svg'
 const Home = () => {
   return (
     <div className='h-screen w-screen'>
-      {/* {
-        ((window.localStorage.getItem('token') === null) ||
-        (window.localStorage.getItem('token') === undefined) ||
-        (new Date().getTime() > window.localStorage.getItem('accessExpirationTime') &&
-        window.localStorage.removeItem('token'))) &&
-          <Redirect to='/login' />
-      } */}
       <div className='relative overflow-hidden pt-20 h-full'>
         <div className='pt-8 text-left pl-14 h-full'>
           <h1 className='text-3xl font-sora font-bold w-2/3 my-14 mx-4'>Let's get you started!</h1>

@@ -4,11 +4,37 @@ import { useHistory } from 'react-router'
 import * as Yup from 'yup'
 import '../Styles/SelectField.css'
 import { validatePhoneNumber } from '../Utils/Helper'
-import { useFirestore } from '../Contexts/FirestoreContext'
 
 const RegisterGuardian = () => {
   const history = useHistory()
-  const { addGuardian } = useFirestore()
+  const access = window.localStorage.getItem('accessToken')
+  if (access === null || access === undefined) {
+    history.push('login')
+  } else {
+    console.log(access)
+  }
+
+  const handlePoc = (body) => {
+    window.fetch('http://localhost:5000/api/poc', {
+      body: JSON.stringify(body),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: access
+      }
+    }).then((res) => {
+      if (res.status === 200) {
+        history.push('/qr')
+      } else {
+        history.push('/login')
+      }
+      return res.json()
+    }).then(data => {
+      console.log(data)
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
 
   return (
     <div className='w-screen py-5 min-h-screen flex items-center justify-center bg-jams_purple'>
@@ -35,16 +61,17 @@ const RegisterGuardian = () => {
               }))).min(1).max(3)
             })}
             onSubmit={(values) => {
-              const users = values.users
-              users.forEach(user => {
-                const name = user.firstName + ' ' + user.lastName
-                addGuardian(name, user.email, user.phone).then(() => {
-                  history.push('/qr')
-                }).catch(err => {
-                  console.log(err)
-                  history.push('/login')
+              const users = values.users.map(user => {
+                return ({
+                  name: user.firstName + ' ' + user.lastName,
+                  email: user.email,
+                  phone: user.phone
                 })
               })
+              const body = {
+                guardians: users
+              }
+              handlePoc(body)
             }}
           >
             {({ values }) => (
