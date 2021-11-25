@@ -2,11 +2,13 @@
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import PhoneNumber from '../Components/PhoneNumber'
 import * as Yup from 'yup'
+import { useParams  } from 'react-router'
 // import SelectField from '../Components/SelectField'
 // import { genderOptions } from '../Data/DropdownData'
 import { validatePhoneNumber } from '../Utils/Helper'
 
 const ScanForm = () => {
+  const { cid } = useParams()
   const handleScan = (body) => {
     const name = body.firstName + ' ' + body.lastName
     const formData = new FormData()
@@ -14,8 +16,9 @@ const ScanForm = () => {
     formData.append('email', body.email)
     formData.append('phone', body.phone)
 
-    window.fetch('http://localhost:5000/api/scan', {
-      body: formData
+    window.fetch(`http://localhost:5000/api/scan/${cid}`, {
+      body: formData,
+      method: 'POST'
     }).then(res => {
       if (res.status !== 200) {
         throw new Error('Error sending details')

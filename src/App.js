@@ -29,7 +29,7 @@ const App = () => {
             <Route exact path='/home' component={Home} />
             <Route exact path='/poc' component={RegisterGuardian} />
             <Route exact path='/qr' component={QRGenerator} />
-            <Route path='/scan/:uid' component={ScanForm} />
+            <Route path='/scan/:cid' component={ScanForm} />
             <Redirect to='/' />
           </Switch>
         </AuthProvider>
