@@ -14,17 +14,16 @@ const ScanForm = () => {
     formData.append('email', body.email)
     formData.append('phone', body.phone)
 
-    window.fetch('http://localhost:5000/api/login', {
+    window.fetch('http://localhost:5000/api/scan', {
       body: formData
     }).then(res => {
-      if (res.status === 200) {
-        return res.json()
-      } else {
+      if (res.status !== 200) {
         throw new Error('Error sending details')
       }
+      return res.json()
     }).then(data => {
       if (data.emailSent) {
-        alert('Emails sent!')
+        window.alert('Emails sent!')
       }
     }).catch(err => {
       console.log(err)

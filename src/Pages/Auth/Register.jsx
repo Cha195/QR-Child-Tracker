@@ -47,7 +47,7 @@ const Register = () => {
           setButtonDisable(false)
           setButtonText('REGISTER')
           console.log(registered)
-          if(registered) {
+          if (registered) {
             history.push('/login')
           } else {
             throw new Error('Cannot register')

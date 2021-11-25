@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { auth } from '../firebase'
 
 const AuthContext = React.createContext()
@@ -8,9 +8,6 @@ export const useAuth = () => {
 }
 
 export const AuthProvider = ({ children }) => {
-  const [currentUserId, setCurrentUserId] = useState('')
-  const [currentClientId, setCurrentClientId] = useState('')
-
   const signup = async (email, password, name, phone) => {
     const formData = new FormData()
     formData.append('email', email)
@@ -23,7 +20,7 @@ export const AuthProvider = ({ children }) => {
         method: 'POST',
         body: formData
       }).then((res) => {
-        if(res.status !== 200) {
+        if (res.status !== 200) {
           throw new Error('Error signing up')
         }
         registered = true
@@ -46,15 +43,12 @@ export const AuthProvider = ({ children }) => {
         method: 'POST',
         body: formData
       }).then((res) => {
-        if(res.status === 200) {
+        if (res.status === 200) {
           return res.json()
         } else {
           throw new Error('Error logging in')
         }
       }).then(data => {
-        console.log(data)
-        setCurrentClientId(data.client_id)
-        setCurrentUserId(data.user_id)
         window.localStorage.setItem('accessToken', data.access)
         window.localStorage.setItem('refreshToken', data.refresh)
         loggedIn = true
@@ -92,8 +86,6 @@ export const AuthProvider = ({ children }) => {
   // }
 
   const value = {
-    currentClientId,
-    currentUserId,
     login,
     signup,
     logout

@@ -7,22 +7,26 @@ import { validatePhoneNumber } from '../Utils/Helper'
 
 const RegisterGuardian = () => {
   const history = useHistory()
-  const access = window.localStorage.getItem('access')
-  if(access === null || access === undefined) {
+  const access = window.localStorage.getItem('accessToken')
+  if (access === null || access === undefined) {
     history.push('login')
+  } else {
+    console.log(access)
   }
 
   const handlePoc = (body) => {
     window.fetch('http://localhost:5000/api/poc', {
-      body: body,
+      body: JSON.stringify(body),
+      method: 'POST',
       headers: {
+        'Content-Type': 'application/json',
         authorization: access
       }
     }).then((res) => {
-      if(res.status === 200) {
+      if (res.status === 200) {
         history.push('/qr')
       } else {
-        history.push('/register')
+        history.push('/login')
       }
       return res.json()
     }).then(data => {
@@ -57,7 +61,13 @@ const RegisterGuardian = () => {
               }))).min(1).max(3)
             })}
             onSubmit={(values) => {
-              const users = values.users
+              const users = values.users.map(user => {
+                return ({
+                  name: user.firstName + ' ' + user.lastName,
+                  email: user.email,
+                  phone: user.phone
+                })
+              })
               const body = {
                 guardians: users
               }

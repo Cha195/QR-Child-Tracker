@@ -8,7 +8,7 @@ import RegisterGuardian from './Pages/RegisterGuardian'
 import 'react-phone-number-input/style.css'
 import QRGenerator from './Pages/QRGenerator'
 import { AuthProvider } from './Contexts/AuthContext'
-import PrivateRoute from './Components/PrivateRoute'
+// import PrivateRoute from './Components/PrivateRoute'
 import {
   BrowserRouter,
   Switch,
@@ -26,9 +26,9 @@ const App = () => {
             <Route exact path='/' component={Landing} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
-            <PrivateRoute exact path='/home' component={Home} />
-            <PrivateRoute exact path='/poc' component={() => RegisterGuardian} />
-            <PrivateRoute exact path='/qr' component={() => QRGenerator} />
+            <Route exact path='/home' component={Home} />
+            <Route exact path='/poc' component={RegisterGuardian} />
+            <Route exact path='/qr' component={QRGenerator} />
             <Route path='/scan/:uid' component={ScanForm} />
             <Redirect to='/' />
           </Switch>
