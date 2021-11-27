@@ -7,6 +7,7 @@ import { validatePhoneNumber } from '../Utils/Helper'
 
 const RegisterGuardian = () => {
   const history = useHistory()
+  const backend_url = process.env.REACT_APP_BACKEND
   const access = window.localStorage.getItem('accessToken')
   if (access === null || access === undefined) {
     history.push('login')
@@ -15,7 +16,7 @@ const RegisterGuardian = () => {
   }
 
   const handlePoc = (body) => {
-    window.fetch('http://localhost:5000/api/poc', {
+    window.fetch(`${backend_url}/poc`, {
       body: JSON.stringify(body),
       method: 'POST',
       headers: {

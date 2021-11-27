@@ -5,7 +5,6 @@ import { useAuth } from '../Contexts/AuthContext'
 const QRGenerator = () => {
   const { currentClientId } = useAuth()
   const url = `https://child-traqr.netlify.app/scan/${currentClientId}`
-  console.log(url)
   return (
     <div className='h-screen w-screen p-10'>
       <div className='flex items-center justify-evenly h-full w-full'>

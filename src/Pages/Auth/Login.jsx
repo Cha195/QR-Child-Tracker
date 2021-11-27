@@ -42,7 +42,6 @@ const Login = () => {
       setButtonDisable(true)
       setButtonText(<PuffLoader css={LoaderCss} size={24} loading color='white' />)
       login(credentials.email, credentials.password).then((loggedIn) => {
-        console.log(loggedIn)
         if (loggedIn) {
           setButtonDisable(false)
           setButtonText('LOGIN')

@@ -8,6 +8,7 @@ export const useAuth = () => {
 }
 
 export const AuthProvider = ({ children }) => {
+  const backend_url = process.env.REACT_APP_BACKEND
   const signup = async (email, password, name, phone) => {
     const formData = new FormData()
     formData.append('email', email)
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     formData.append('phone', phone)
     let registered = false
     try {
-      await window.fetch('http://localhost:5000/api/signup', {
+      await window.fetch(`${backend_url}/signup`, {
         method: 'POST',
         body: formData
       }).then((res) => {
@@ -39,7 +40,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       let loggedIn = false
-      await window.fetch('http://localhost:5000/api/token', {
+      await window.fetch(`${backend_url}/login`, {
         method: 'POST',
         body: formData
       }).then((res) => {
