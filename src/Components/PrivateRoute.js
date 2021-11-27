@@ -3,7 +3,6 @@ import { useAuth } from '../Contexts/AuthContext'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { currentUserId } = useAuth()
-  console.log(currentUserId)
 
   return (
     <Route
