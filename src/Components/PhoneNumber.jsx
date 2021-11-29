@@ -3,12 +3,12 @@ import '../Styles/SelectField.css'
 
 const PhoneNumber = ({ field, form, placeholder, disabled }) => (
   <PhoneInput
-    className='formikInput'
+    className='formikInput pl-3'
     name={field.name}
     placeholder={placeholder}
     value={field.value}
     countrySelectProps={{
-      className: 'bg-jams_dark_purple'
+      className: 'bg-purple-300'
     }}
     disabled={disabled}
     defaultCountry='IN'
