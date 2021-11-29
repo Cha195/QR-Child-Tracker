@@ -8,6 +8,7 @@ import RegisterGuardian from './Pages/RegisterGuardian'
 import 'react-phone-number-input/style.css'
 import QRGenerator from './Pages/QRGenerator'
 import { AuthProvider } from './Contexts/AuthContext'
+import Navbar from './Components/Navbar'
 // import PrivateRoute from './Components/PrivateRoute'
 import {
   BrowserRouter,
@@ -22,6 +23,7 @@ const App = () => {
     <div className='App'>
       <BrowserRouter>
         <AuthProvider>
+          <Navbar />
           <Switch>
             <Route exact path='/' component={Landing} />
             <Route exact path='/login' component={Login} />

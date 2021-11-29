@@ -5,7 +5,7 @@ import Ellipse from '../Assets/Ellipse.png'
 
 const Landing = () => {
   return (
-    <div className='h-full'>
+    <div className='h-full pt-20'>
       <div className='w-screen h-full'>
         <div className='mt-20 mb-30 text-center text-2xl md:text-4xl text-black font-sora font-bold gap-4'>
           <p>Protect Your Child</p>

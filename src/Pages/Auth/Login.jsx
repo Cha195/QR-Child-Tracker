@@ -51,32 +51,6 @@ const Login = () => {
           setButtonDisable(false)
         }
       })
-      // window.fetch(`${baseURL}/user/login`, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(credentials)
-      // }).then((res) => {
-      //   if (res.status !== 200) {
-      //     setButtonText('LOGIN')
-      //     setButtonDisable(false)
-      //     setErrorMessage('Login Error')
-      //     throw new Error('Invalid Credentials')
-      //   } else {
-      //     return res.json()
-      //   }
-      // }).then(data => {
-      //   const now = new Date()
-      //   if (data !== undefined && data !== null) {
-      //     window.localStorage.setItem('token', data.access)
-      //     window.localStorage.setItem('accessExpirationTime', now.getTime() + 86400000)
-      //     history.push({
-      //       pathname: '/home'
-      //     })
-      //   }
-      // }).catch(err => {
-      //   console.error(err)
-      //   setErrorMessage(err.message)
-      // })
     } else {
       setErrorMessage('Enter Credentials')
     }
@@ -87,14 +61,7 @@ const Login = () => {
   }
 
   return (
-    <div className='h-screen bg-newblue text-white'>
-      {/* {
-        (window.localStorage.getItem('token') !== undefined &&
-        window.localStorage.getItem('token') !== null) &&
-        (new Date().getTime() < window.localStorage.getItem('accessExpirationTime')) &&
-        history.push('/home')
-      }
-      <Header /> */}
+    <div className='h-screen pt-16'>
       <div className='w-screen relative'>
         <div className='ml-28 w-2/5 max-w-xl pt-24'>
           <div>
@@ -106,7 +73,7 @@ const Login = () => {
             <input
               type='text'
               name='email'
-              className='mt-5 p-3 border-2 border-black bg-newdarkblue text-white placeholder-white rounded-md outline-none w-full'
+              className='mt-5 p-3 border-2 bg-purple-100 rounded-md outline-none w-full'
               placeholder='Email'
               onChange={handleChange}
               autoComplete='off'
@@ -114,7 +81,7 @@ const Login = () => {
             <input
               type={visible ? 'text' : 'password'}
               name='password'
-              className='mt-5 p-3 border-2 border-black bg-newdarkblue text-white placeholder-white rounded-md outline-none w-full'
+              className='mt-5 p-3 border-2 bg-purple-100 rounded-md outline-none w-full'
               placeholder='Password'
               onKeyPress={handleEnter}
               onChange={handleChange}
@@ -133,7 +100,7 @@ const Login = () => {
               type='submit'
               onClick={handleLogin}
               disabled={buttonDisable}
-              className='w-full p-4 bg-blue-800 font-sora font-bold rounded-md text-white mt-5 mb-8 outline-none cursor-pointer border-2 border-newblue hover:bg-blue-700 hover:text-white hover:border-white disabled:bg-blue-800 disabled:text-gray-400 disabled:border-blue-800 disabled:cursor-default'
+              className='w-full p-4 bg-purple-600 font-sora font-bold rounded-md text-white mt-5 mb-8 outline-none cursor-pointer border-2 border-purple-600 hover:bg-purple-700 hover:text-white hover:border-purple-700 disabled:bg-purple-800 disabled:text-gray-400 disabled:border-purple-800 disabled:cursor-default'
             >
               {buttonText}
             </button>
