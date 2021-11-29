@@ -1,6 +1,7 @@
 import React from 'react'
 import IPhone from '../Assets/iphone.png'
 import Mac from '../Assets/mac.png'
+import Ellipse from '../Assets/Ellipse.png'
 
 const Landing = () => {
   return (
@@ -13,13 +14,18 @@ const Landing = () => {
         <div className='mt-10 flex mx-auto w-36'>
           <a href='/register' className='py-3 font-bold font-sora border-2 bg-purple-700 border-purple-600 w-36 hover:bg-white hover:text-newblue rounded-md text-white'>REGISTER</a>
         </div>
-        <div className='relative'>
-          <img src={Mac} alt='iphone' className='w-4/12 absolute' />
-          <img src={IPhone} alt='iphone' className='w-1/12 absolute mx-auto' />
+        <div className='flex flex-col items-center'>
+            <img src={Mac} alt='iphone' className='absolute bottom-0 mb-2' />
+            <img src={IPhone} alt='iphone' className='absolute bottom-0 ml-48 mt-2' />
+          <img src={Ellipse} alt='ellipse' className='absolute bottom-0 -z-10' />
         </div>
-        <div className='w-2/3 h-2/3 bg-purple-400 rounded absolute top-2/3 -z-10' />
       </div>
-      {/* <div className='h-screen w-screen p-20' /> */}
+      <div className='w-screen h-screen'>
+      <div className='mt-20 mb-30 text-start text-2xl md:text-4xl text-black font-sora font-bold gap-4'>
+          <p>Save Your Child</p>
+          <p className='bt-5'>with this process</p>
+        </div>
+      </div>
     </div>
   )
 }
