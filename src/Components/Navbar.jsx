@@ -8,7 +8,7 @@ const Navbar = () => {
     <>
       {/* Navbar */}
       <div
-        className='fixed flex justify-between h-16 lg:h-20 w-full transition-all duration-300 ease-in-out border-b-2 shadow-md bg-white'
+        className='fixed z-30 flex justify-between h-16 lg:h-20 w-full transition-all duration-300 ease-in-out border-b-2 shadow-md bg-white'
       >
         <a href='/' className='flex items-center gap-2 h-full ml-5'>
           <img alt='logo' src={logo} className='w-12' />
