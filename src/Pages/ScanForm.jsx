@@ -2,16 +2,17 @@ import { useState, useEffect } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import PhoneNumber from '../Components/PhoneNumber'
 import * as Yup from 'yup'
-import { useParams } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { validatePhoneNumber } from '../Utils/Helper'
 
 const ScanForm = () => {
   const { cid } = useParams()
   const [location, setLocation] = useState({ latitude: '', longitude: '' })
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.watchPosition((position) => {
+      navigator.geolocation.getCurrentPosition((position) => {
         setLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
@@ -19,9 +20,9 @@ const ScanForm = () => {
       })
     }
     console.log(location)
-  }, [location])
+  }, []) //eslint-disable-line
 
-  const handleScan = (body) => {
+  const handleScan = async (body) => {
     const name = body.firstName + ' ' + body.lastName
     const formData = new FormData()
     formData.append('name', name)
@@ -29,8 +30,8 @@ const ScanForm = () => {
     formData.append('phone', body.phone)
     formData.append('latitude', location.latitude)
     formData.append('longitude', location.longitude)
-
-    window.fetch(`http://localhost:5000/api/scan/${cid}`, {
+    setLoading(true)
+    await window.fetch(`http://localhost:5000/api/scan/${cid}`, {
       body: formData,
       method: 'POST'
     }).then(res => {
@@ -41,14 +42,22 @@ const ScanForm = () => {
     }).then(data => {
       if (data.emailSent) {
         window.alert('Emails sent!')
+        setLoading(false)
       }
     }).catch(err => {
+      setLoading(false)
       console.log(err)
     })
+    setLoading(false)
   }
 
   return (
     <div className='w-screen p-5 min-h-screen items-center justify-center'>
+      {loading &&
+        <div className='bg-blue-300 flex justify-center items-center h-screen w-screen z-30 text-black font-bold font-sora text-4xl'>
+          Loading...
+        </div>
+      }
       <h1 className='text-2xl md:text-4xl text-start font-bold mb-10 mt-20'>Your details will be sent to the guardians of the child.</h1>
       <h3 className='text-xl md:w-1/3 mx-auto bg-blue-300 rounded-md p-3 text-start font-semibold my-10'>We recommend that you share your location bring the reunion faster</h3>
       <div className='z-10 sm:top-0 mx-auto bg-purple-50 text-black w-11/12 md:w-4/5 lg:w-3/5 xl:w-2/5 px-7 pb-7 text-left rounded-xl flex flex-col'>
