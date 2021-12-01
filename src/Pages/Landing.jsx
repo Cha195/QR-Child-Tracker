@@ -20,12 +20,6 @@ const Landing = () => {
           <img src={Ellipse} alt='ellipse' className='absolute bottom-0 -z-10' />
         </div>
       </div>
-      <div className='w-screen h-screen'>
-      <div className='mt-20 mb-30 text-start text-2xl md:text-4xl text-black font-sora font-bold gap-4'>
-          <p>Save Your Child</p>
-          <p className='bt-5'>with this process</p>
-        </div>
-      </div>
     </div>
   )
 }
