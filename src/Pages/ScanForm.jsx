@@ -9,17 +9,17 @@ const ScanForm = () => {
   const { cid } = useParams()
   const [location, setLocation] = useState({ latitude: '', longitude: '' })
 
-  // useEffect(() => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.watchPosition((position) => {
-  //       setLocation({
-  //         latitude: position.coords.latitude,
-  //         longitude: position.coords.longitude
-  //       })
-  //     })
-  //   }
-  //   console.log(location)
-  // }, [location])
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition((position) => {
+        setLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        })
+      })
+    }
+    console.log(location)
+  }, [location])
 
   const handleScan = (body) => {
     const name = body.firstName + ' ' + body.lastName
@@ -27,6 +27,8 @@ const ScanForm = () => {
     formData.append('name', name)
     formData.append('email', body.email)
     formData.append('phone', body.phone)
+    formData.append('latitude', location.latitude)
+    formData.append('longitude', location.longitude)
 
     window.fetch(`http://localhost:5000/api/scan/${cid}`, {
       body: formData,

@@ -5,6 +5,8 @@ import Landing from './Pages/Landing'
 import Login from './Pages/Auth/Login'
 import Register from './Pages/Auth/Register'
 import RegisterGuardian from './Pages/RegisterGuardian'
+import ScanForm from './Pages/ScanForm'
+import MapPage from './Pages/Map'
 import 'react-phone-number-input/style.css'
 import QRGenerator from './Pages/QRGenerator'
 import { AuthProvider } from './Contexts/AuthContext'
@@ -16,7 +18,6 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
-import ScanForm from './Pages/ScanForm'
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
             <Route exact path='/poc' component={RegisterGuardian} />
             <Route exact path='/qr' component={QRGenerator} />
             <Route path='/scan/:cid' component={ScanForm} />
+            <Route path='/map' component={MapPage} />
             <Redirect to='/' />
           </Switch>
         </AuthProvider>
