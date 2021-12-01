@@ -34,24 +34,23 @@ const ScanForm = () => {
   }
 
   return (
-    <div className='w-screen py-5 min-h-screen flex items-center justify-center bg-jams_purple'>
-      <div className='z-40 sm:top-0 bg-indigo-900 w-11/12 md:w-4/5 lg:w-3/5 xl:w-2/5 p-7 text-left rounded-xl flex flex-col'>
-        <div className='w-2/3 mx-auto text-center text-2xl text-white font-bold'>
-          Send your details to the guardians
-        </div>
+    <div className='w-screen p-5 min-h-screen items-center justify-center'>
+      <h1 className='text-2xl md:text-4xl text-start font-bold mb-10 mt-20'>Your details will be sent to the guardians of the child.</h1>
+      <h3 className='text-xl md:w-1/3 mx-auto bg-blue-300 rounded-md p-3 text-start font-semibold my-10'>We recommend that you share your location bring the reunion faster</h3>
+      <div className='z-10 sm:top-0 mx-auto bg-purple-50 text-black w-11/12 md:w-4/5 lg:w-3/5 xl:w-2/5 px-7 pb-7 text-left rounded-xl flex flex-col'>
         <div className='mt-5'>
           <Formik
             initialValues={{
               firstName: '',
               lastName: '',
               phone: '',
-              age: ''
+              email: ''
             }}
             validationSchema={Yup.object({
-              firstName: Yup.string().required(),
-              lastName: Yup.string().required(),
-              phone: Yup.string().required(),
-              age: Yup.string().required()
+              firstName: Yup.string().required('Required'),
+              lastName: Yup.string().required('Required'),
+              phone: Yup.string().required('Required'),
+              email: Yup.string().email('Not a valid email').required('Required')
             })}
             onSubmit={(values) => {
               handleScan(values)
@@ -61,14 +60,14 @@ const ScanForm = () => {
               <div className='grid sm:grid-cols-2 gap-x-6 text-sm'>
                 <div className='mt-2'>
                   <label
-                    className='formikLabel text-white mt-2'
+                    className='formikLabel mt-2'
                     htmlFor='firstName'
                   >
                     First name
                   </label>
                   <Field
                     name='firstName'
-                    className='formikInput py-1'
+                    className='formikInput px-3 py-2'
                     type='text'
                   />
                   <ErrorMessage name='firstName'>
@@ -79,14 +78,14 @@ const ScanForm = () => {
                 </div>
                 <div className='mt-2'>
                   <label
-                    className='formikLabel text-white mt-2'
+                    className='formikLabel mt-2'
                     htmlFor='lastName'
                   >
                     Last name
                   </label>
                   <Field
                     name='lastName'
-                    className='formikInput py-1'
+                    className='formikInput  px-3 py-2'
                     type='text'
                   />
                   <ErrorMessage name='lastName'>
@@ -96,9 +95,9 @@ const ScanForm = () => {
                   </ErrorMessage>
                 </div>
               </div>
-              <div className='grid sm:grid-cols-3 lg:grid-cols-4 gap-x-6 text-sm'>
-                <div className='sm:col-span-2 lg:col-span-3 mt-2'>
-                  <label className='formikLabel text-white mt-2' htmlFor='phone'>
+              <div className='grid sm:grid-cols-3 lg:grid-cols-5 gap-x-6 text-sm'>
+                <div className='sm:col-span-2 mt-2'>
+                  <label className='formikLabel text-black mt-2' htmlFor='phone'>
                     Phone Number
                   </label>
                   <Field
@@ -113,14 +112,19 @@ const ScanForm = () => {
                     )}
                   </ErrorMessage>
                 </div>
-              </div>
-              <div className='mt-2 grid grid-cols-2 gap-x-6 text-sm'>
-                <div>
-                  <label className='formikLabel' htmlFor='age'>
-                    Age
+                <div className='sm:col-span-2 lg:col-span-3 mt-2'>
+                  <label
+                    className='formikLabel text-black mt-2'
+                    htmlFor='email'
+                  >
+                    Email
                   </label>
-                  <Field name='age' className='formikInput' type='number' />
-                  <ErrorMessage name='age'>
+                  <Field
+                    name='email'
+                    className='formikInput px-3 py-2'
+                    type='text'
+                  />
+                  <ErrorMessage name='email'>
                     {(msg) => (
                       <div className='text-red-500 w-full text-xs'>{msg}</div>
                     )}
