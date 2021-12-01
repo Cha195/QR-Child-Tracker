@@ -1,14 +1,26 @@
-// import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import PhoneNumber from '../Components/PhoneNumber'
 import * as Yup from 'yup'
-import { useParams  } from 'react-router'
-// import SelectField from '../Components/SelectField'
-// import { genderOptions } from '../Data/DropdownData'
+import { useParams } from 'react-router'
 import { validatePhoneNumber } from '../Utils/Helper'
 
 const ScanForm = () => {
   const { cid } = useParams()
+  const [location, setLocation] = useState({ latitude: '', longitude: '' })
+
+  // useEffect(() => {
+  //   if (navigator.geolocation) {
+  //     navigator.geolocation.watchPosition((position) => {
+  //       setLocation({
+  //         latitude: position.coords.latitude,
+  //         longitude: position.coords.longitude
+  //       })
+  //     })
+  //   }
+  //   console.log(location)
+  // }, [location])
+
   const handleScan = (body) => {
     const name = body.firstName + ' ' + body.lastName
     const formData = new FormData()
