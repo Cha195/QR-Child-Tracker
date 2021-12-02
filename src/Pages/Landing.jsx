@@ -8,8 +8,8 @@ const Landing = () => {
     <div className='h-full pt-20'>
       <div className='w-screen h-full'>
         <div className='mt-20 mb-30 text-center text-2xl md:text-4xl text-black font-sora font-bold gap-4'>
-          <p>Protect Your Child</p>
-          <p className='bt-5'>just with a reistration process</p>
+          <p>Protect Your Child with just</p>
+          <p className='bt-5'>a reistration process</p>
         </div>
         <div className='mt-10 flex mx-auto w-36'>
           <a href='/register' className='py-3 font-bold font-sora border-2 bg-purple-700 border-purple-600 w-36 hover:bg-white hover:text-newblue rounded-md text-white'>REGISTER</a>

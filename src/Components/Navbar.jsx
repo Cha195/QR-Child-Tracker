@@ -18,12 +18,9 @@ const Navbar = () => {
         <div className='font-sora transition-all ease-in-out duration-300 top-6 mr-5'>
           {isHome &&
           <div className='flex items-center h-full'>
-            <div className='hidden lg:flex text-black'>
-              <h4 className='nav-link mr-8'>About Us</h4>
-            </div>
             <a
               href='/login'
-              className='cursor-pointer px-10 py-2 rounded-md text-white border-solid font-bold font-sora border-2 bg-red-500 border-red-500 hover:bg-white hover:text-red-500 hover:border-red-500 transition-all duration-300 ease-in-out'
+              className='cursor-pointer px-6 py-1 rounded-md text-white border-solid font-bold font-sora border-2 bg-red-500 border-red-500 hover:bg-white hover:text-red-500 hover:border-red-500 transition-all duration-300 ease-in-out'
             >
             Login
           </a>

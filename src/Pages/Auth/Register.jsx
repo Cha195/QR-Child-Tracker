@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { PuffLoader } from 'react-spinners'
 import { css } from '@emotion/react'
-import login from '../../Assets/login.svg'
+import regiterIllus from '../../Assets/registerIllus.svg'
 import { useAuth } from '../../Contexts/AuthContext'
 
 const Register = () => {
@@ -131,7 +131,7 @@ const Register = () => {
             </button>
           </div>
         </div>
-        <img src={login} alt='Register' className='absolute top-1/4 w-2/5 right-10' />
+        <img src={regiterIllus} alt='Register' className='absolute top-1/4 w-2/5 right-10' />
       </div>
     </div>
   )

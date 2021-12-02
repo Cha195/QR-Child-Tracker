@@ -6,6 +6,7 @@ import '../Styles/SelectField.css'
 import { validatePhoneNumber } from '../Utils/Helper'
 import Child from '../Assets/Child.png'
 import Adult from '../Assets/Adult.png'
+import registerBG from '../Assets/registerBG.svg'
 
 const RegisterGuardian = () => {
   const history = useHistory()
@@ -43,6 +44,7 @@ const RegisterGuardian = () => {
     <div className='w-screen pb-5 pt-20 md:pt-24 min-h-screen font-sora'>
       <img src={Adult} alt='Adult' className='absolute h-3/4 bottom-0 left-10' />
       <img src={Child} alt='Child' className='absolute bottom-0 right-10' />
+      <img src={registerBG} alt='Child' className='absolute -z-10 w-1/3 top-48 left-1/3' />
       <h1 className='text-4xl text-start font-bold my-10'>Register all your close ones on ChildSafe!</h1>
       <div className='flex items-center justify-center h-full'>  
         <div className='z-10 sm:top-0 bg-purple-50 text-black w-11/12 md:w-4/5 lg:w-3/5 xl:w-2/5 px-7 pb-7 text-left rounded-xl flex flex-col'>
